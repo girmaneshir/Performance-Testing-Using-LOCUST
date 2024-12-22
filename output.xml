@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1.1 (Python 3.9.20 on win32)" generated="2024-12-15T12:53:12.612972" rpa="false" schemaversion="5">
+<suite id="s1" name="Database Test" source="C:\Users\user\Desktop\SQAT2024_CEP_2024\Lab_SQAT\Lab_06_PerformanceTest_Using_Python\database_test.robot">
+<test id="s1-t1" name="Check Database Exists" line="9">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2024-12-15T12:53:12.697716" level="INFO" html="true">File '&lt;a href="file://C:\Users\user\Desktop\SQAT2024_CEP_2024\Lab_SQAT\Lab_06_PerformanceTest_Using_Python\users.db"&gt;C:\Users\user\Desktop\SQAT2024_CEP_2024\Lab_SQAT\Lab_06_PerformanceTest_Using_Python\users.db&lt;/a&gt;' exists.</msg>
+<arg>${DB_PATH}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2024-12-15T12:53:12.696745" elapsed="0.000971"/>
+</kw>
+<msg time="2024-12-15T12:53:12.697716" level="INFO">${exists} = True</msg>
+<var>${exists}</var>
+<arg>File Should Exist</arg>
+<arg>${DB_PATH}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2024-12-15T12:53:12.695719" elapsed="0.001997"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${exists}</arg>
+<arg>Create Database</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-12-15T12:53:12.698713" elapsed="0.000000"/>
+</kw>
+<doc>Check if the database exists, and create if it does not.</doc>
+<status status="PASS" start="2024-12-15T12:53:12.694722" elapsed="0.004986"/>
+</test>
+<test id="s1-t2" name="Validate Users Table Exists" line="14">
+<kw name="Connect To Database" owner="DatabaseLibrary">
+<msg time="2024-12-15T12:53:12.701703" level="INFO">Looking for configuration file: 'resources\db.cfg'</msg>
+<msg time="2024-12-15T12:53:12.701703" level="INFO">Configuration file doesn't exist</msg>
+<msg time="2024-12-15T12:53:12.709712" level="FAIL">ModuleNotFoundError: No module named 'sqlite:///C:/Users/user/Desktop/SQAT2024_CEP_2024/Lab_SQAT/Lab_06_PerformanceTest_Using_Python/users'</msg>
+<arg>sqlite:///${DB_PATH}</arg>
+<doc>Creates a database connection using the DB API 2.0 ``db_module`` and the parameters provided.
+Along with listed commonly used arguments (`db_name`, `db_host` etc.)
+you can set any other DB module specific parameters as key/value pairs.</doc>
+<status status="FAIL" start="2024-12-15T12:53:12.701703" elapsed="0.009981">ModuleNotFoundError: No module named 'sqlite:///C:/Users/user/Desktop/SQAT2024_CEP_2024/Lab_SQAT/Lab_06_PerformanceTest_Using_Python/users'</status>
+</kw>
+<kw name="Query" owner="DatabaseLibrary">
+<var>${result}</var>
+<arg>SELECT name FROM sqlite_master WHERE type='table' AND name='user';</arg>
+<doc>Runs a query with the ``select_statement`` and returns the result as list of rows.
+The type of row values depends on the database module -
+usually they are tuples or tuple-like objects.</doc>
+<status status="NOT RUN" start="2024-12-15T12:53:12.711684" elapsed="0.000000"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<arg>${result}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="NOT RUN" start="2024-12-15T12:53:12.712678" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<status status="NOT RUN" start="2024-12-15T12:53:12.713674" elapsed="0.000000"/>
+</kw>
+<doc>Check if the "user" table exists in the database.</doc>
+<status status="FAIL" start="2024-12-15T12:53:12.700706" elapsed="0.012968">ModuleNotFoundError: No module named 'sqlite:///C:/Users/user/Desktop/SQAT2024_CEP_2024/Lab_SQAT/Lab_06_PerformanceTest_Using_Python/users'</status>
+</test>
+<test id="s1-t3" name="Validate Sample Users" line="21">
+<kw name="Connect To Database" owner="DatabaseLibrary">
+<msg time="2024-12-15T12:53:12.716694" level="INFO">Looking for configuration file: 'resources\db.cfg'</msg>
+<msg time="2024-12-15T12:53:12.716694" level="INFO">Configuration file doesn't exist</msg>
+<msg time="2024-12-15T12:53:12.717691" level="FAIL">ModuleNotFoundError: No module named 'sqlite:///C:/Users/user/Desktop/SQAT2024_CEP_2024/Lab_SQAT/Lab_06_PerformanceTest_Using_Python/users'</msg>
+<arg>sqlite:///${DB_PATH}</arg>
+<doc>Creates a database connection using the DB API 2.0 ``db_module`` and the parameters provided.
+Along with listed commonly used arguments (`db_name`, `db_host` etc.)
+you can set any other DB module specific parameters as key/value pairs.</doc>
+<status status="FAIL" start="2024-12-15T12:53:12.715666" elapsed="0.003026">ModuleNotFoundError: No module named 'sqlite:///C:/Users/user/Desktop/SQAT2024_CEP_2024/Lab_SQAT/Lab_06_PerformanceTest_Using_Python/users'</status>
+</kw>
+<kw name="Query" owner="DatabaseLibrary">
+<var>${result}</var>
+<arg>SELECT * FROM user</arg>
+<doc>Runs a query with the ``select_statement`` and returns the result as list of rows.
+The type of row values depends on the database module -
+usually they are tuples or tuple-like objects.</doc>
+<status status="NOT RUN" start="2024-12-15T12:53:12.718692" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Sample Users: ${result}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-15T12:53:12.719657" elapsed="0.000000"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<arg>${result}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="NOT RUN" start="2024-12-15T12:53:12.719657" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<status status="NOT RUN" start="2024-12-15T12:53:12.719657" elapsed="0.000000"/>
+</kw>
+<doc>Validate that sample users are in the database.</doc>
+<status status="FAIL" start="2024-12-15T12:53:12.715666" elapsed="0.004991">ModuleNotFoundError: No module named 'sqlite:///C:/Users/user/Desktop/SQAT2024_CEP_2024/Lab_SQAT/Lab_06_PerformanceTest_Using_Python/users'</status>
+</test>
+<status status="FAIL" start="2024-12-15T12:53:12.616961" elapsed="0.106685"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="2" skip="0" id="s1" name="Database Test">Database Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
